@@ -85,7 +85,8 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 .surprise-view-centered { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 5rem; }
 .gift-glow-icon { color: var(--accent-color); filter: drop-shadow(0 0 15px var(--accent-glow)); margin-bottom: 2rem; }
 .surprise-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
-.surprise-hint { color: #475569; font-size: 0.9rem; margin-bottom: 3.5rem; }
+.surprise-hint { color: var(--primary-bg); font-size: 0.8rem; margin-top: 2rem; letter-spacing: 0.1em; transition: 0.8s; opacity: 0; pointer-events: none; }
+.surprise-hint.visible { color: #475569; opacity: 1; pointer-events: auto; }
 .surprise-input-wrapper { width: 100%; max-width: 400px; }
 .surprise-fancy-input { width: 100%; background: #050505; border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 0.8rem; transition: 0.3s; }
 .surprise-fancy-input::placeholder { font-size: 1rem; letter-spacing: 0.1em; color: #2d3748; }

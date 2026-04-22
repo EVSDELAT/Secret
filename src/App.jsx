@@ -56,12 +56,15 @@ export default function App() {
 
   const [surprisePass, setSurprisePass] = useState('');
   const [isSurpriseOpen, setIsSurpriseOpen] = useState(false);
+  const [surpriseClicks, setSurpriseClicks] = useState(0);
+  const [showHint, setShowHint] = useState(false);
+  const [versionClicks, setVersionClicks] = useState(0);
+  const [footerText, setFooterText] = useState('Version 5.2.0');
 
-  const surpriseText = 'A'.repeat(100); // 預設 100 個 A
+  const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾 然後我蠻想見妳的`; // 預設內容
 
-  // Auto-unlock Surprise
   useEffect(() => {
-    if (surprisePass === '520') {
+    if (surprisePass === '0420') {
       setIsSurpriseOpen(true);
       setSurprisePass(''); // 重置以便再次輸入
     }
@@ -162,7 +165,21 @@ export default function App() {
               </button>
             ))}
           </nav>
-          <div className="sidebar-footer"><p>CRYPTO HUB v4.1</p></div>
+          <div
+            className="sidebar-footer"
+            onClick={() => {
+              const next = versionClicks + 1;
+              setVersionClicks(next);
+              if (next >= 3) {
+                setFooterText('我也蠻喜歡你的');
+                setVersionClicks(0);
+                setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+              }
+            }}
+            style={{ cursor: 'pointer' }}
+          >
+            <p>{footerText}</p>
+          </div>
         </aside>
 
         <main className="main-content">
@@ -252,12 +269,19 @@ export default function App() {
 
               {activeTab === 'surprise' && (
                 <div className="surprise-view-centered">
-                  <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 4 }}>
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 4 }}
+                    onClick={() => {
+                      const newClicks = surpriseClicks + 1;
+                      setSurpriseClicks(newClicks);
+                      if (newClicks >= 3) setShowHint(true);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <Gift size={64} className="gift-glow-icon" />
                   </motion.div>
-                  <h3 className="surprise-title">智慧感應區 / SMART SENSE</h3>
-                  <p className="surprise-hint">當輸入正確的 520 密碼時，驚喜將自動浮現。</p>
-
+                  <h3 className="surprise-title">Pisces Love Surprises&Gift</h3>
                   <div className="surprise-input-wrapper">
                     <input
                       type="password"
@@ -267,6 +291,7 @@ export default function App() {
                       className="surprise-fancy-input"
                     />
                   </div>
+                  <p className={`surprise-hint ${showHint ? 'visible' : ''}`}>The First Day We Met</p>
                 </div>
               )}
             </motion.div>
