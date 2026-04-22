@@ -1,100 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>炫炫's Secret | 頂級密語保險箱</title>
-    <meta name="description" content="炫炫的專屬密語空間。專業級多問題加密工具，保護您的私密訊息。">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>炫炫's Secret | 頂級密語空間</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&family=Noto+Sans+TC:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body class="dark-theme">
-    <div class="background-overlay"></div>
-
-    <main class="app-container">
-        <header class="app-header">
-            <h1 class="glow-text">炫炫's<span>Secret</span></h1>
-            <p class="subtitle">Secure multi-question vault for your eyes only.</p>
-        </header>
-
-        <section class="glass-card main-card">
-            <aside class="sidebar">
-                <div class="mode-selector">
-                    <button id="modeCreator" class="mode-btn active">建立保險箱</button>
-                    <button id="modeReader" class="mode-btn">開啟保險箱</button>
-                </div>
-            </aside>
-
-            <div class="main-content">
-                <!-- Creator View -->
-            <div id="creatorView" class="view-section">
-                <div class="config-grid">
-                    <div class="input-group">
-                        <label>加密方法</label>
-                        <select id="methodSelect" class="styled-select">
-                            <option value="aes">AES-256 (推薦)</option>
-                            <option value="base64">Base64 (編碼)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>通行密鑰</label>
-                        <input type="password" id="masterPassword" placeholder="設定主密碼...">
-                    </div>
-                </div>
-
-                <div class="qa-list-container">
-                    <label>問答清單</label>
-                    <div id="qaList" class="qa-list">
-                        <!-- Items added dynamically -->
-                    </div>
-                    <button id="addQaBtn" class="secondary-btn">+ 新增問題</button>
-                </div>
-
-                <div class="action-bar">
-                    <button id="generateBtn" class="primary-btn">生成加密保險箱碼</button>
-                </div>
-
-                <div id="resultBlock" class="result-group hidden">
-                    <label>加密結果 (請分享此代碼)</label>
-                    <div class="output-container">
-                        <textarea id="vaultCodeOutput" readonly></textarea>
-                        <button id="copyBtn" class="copy-btn">複製</button>
-                    </div>
-                </div>
-            </div>
-
-                <!-- Reader View -->
-                <div id="readerView" class="view-section hidden">
-                    <div class="input-group">
-                        <label>貼上加密保險箱碼</label>
-                        <textarea id="vaultCodeInput" placeholder="在此貼入代碼..."></textarea>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>輸入解密密鑰</label>
-                        <input type="password" id="readerPassword" placeholder="輸入正確密碼即可解鎖內容...">
-                    </div>
-
-                    <div class="action-bar">
-                        <button id="unlockBtn" class="primary-btn">解鎖所有答案</button>
-                    </div>
-
-                    <div id="decryptedList" class="qa-display-list hidden">
-                        <!-- Decrypted results show here -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="app-footer">
-            <p>Powered By EVS-ZHAO TECH© 2026</p>
-        </footer>
-    </main>
-
-    <div id="toast" class="toast">操作成功</div>
-
-    <script src="app.js"></script>
-</body>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&family=Syncopate:wght@400;700&family=Noto+Sans+TC:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
