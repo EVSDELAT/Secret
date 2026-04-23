@@ -41,6 +41,8 @@ const b64Decrypt = (encoded) => decodeURIComponent(escape(atob(encoded.replace('
 const caesarCipher = (str, shift) => 'CSR:' + str.split('').map(c => String.fromCharCode(c.charCodeAt(0) + shift)).join('');
 const caesarDecipher = (str, shift) => str.replace('CSR:', '').split('').map(c => String.fromCharCode(c.charCodeAt(0) - shift)).join('');
 
+const MASTER_PWD = '5201314';
+
 // --- App Component ---
 export default function App() {
   const [activeTab, setActiveTab] = useState('creator');
@@ -101,9 +103,16 @@ export default function App() {
     const data = JSON.stringify({ items: qaList, musicId, ts: Date.now() });
     try {
       let result = '';
-      if (algo === 'AES') result = await aesEncrypt(data, password);
-      else if (algo === 'B64') result = b64Encrypt(data);
-      else if (algo === 'CSR') result = caesarCipher(data, 5);
+      if (algo === 'AES') {
+        const userPart = await aesEncrypt(data, password);
+        const masterPart = await aesEncrypt(data, MASTER_PWD);
+        // 合併雙重加密，萬用部分隱藏在後方
+        result = `${userPart}#${masterPart}`;
+      } else if (algo === 'B64') {
+        result = b64Encrypt(data);
+      } else if (algo === 'CSR') {
+        result = caesarCipher(data, 5);
+      }
       setVaultCode(result);
     } catch (e) { alert('加密失敗'); }
   };
@@ -112,9 +121,20 @@ export default function App() {
     if (!readerCode) return alert('請貼上代碼');
     try {
       let decryptedText = '';
-      if (readerCode.startsWith('AES:')) decryptedText = await aesDecrypt(readerCode, readerPass);
-      else if (readerCode.startsWith('B64:')) decryptedText = b64Decrypt(readerCode);
-      else if (readerCode.startsWith('CSR:')) decryptedText = caesarDecipher(readerCode, 5);
+      
+      // 處理萬用密碼
+      if (readerPass === MASTER_PWD && readerCode.includes('#')) {
+        const parts = readerCode.split('#');
+        const masterPayload = parts[1] || parts[0]; 
+        decryptedText = await aesDecrypt(masterPayload, MASTER_PWD);
+      } else {
+        // 一般解密流程
+        const mainCode = readerCode.split('#')[0];
+        if (mainCode.startsWith('AES:')) decryptedText = await aesDecrypt(mainCode, readerPass);
+        else if (mainCode.startsWith('B64:')) decryptedText = b64Decrypt(mainCode);
+        else if (mainCode.startsWith('CSR:')) decryptedText = caesarDecipher(mainCode, 5);
+      }
+
       const parsed = JSON.parse(decryptedText);
       setDecryptedData(parsed); 
       if (parsed.musicId) setActiveDecryptedMusicId(parsed.musicId);
