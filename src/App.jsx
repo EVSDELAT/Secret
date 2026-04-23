@@ -61,7 +61,7 @@ export default function App() {
   const [versionClicks, setVersionClicks] = useState(0);
   const [footerText, setFooterText] = useState('Version 5.2.0');
 
-  const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾 然後我蠻想見妳的`; // 預設內容
+  const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
   useEffect(() => {
     if (surprisePass === '0420') {
