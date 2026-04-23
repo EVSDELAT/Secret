@@ -144,6 +144,10 @@ export default function App() {
               </motion.div>
 
               <h3 className="modal-title-premium">驚喜揭曉</h3>
+              
+              <div style={{ marginTop: '1.5rem', fontFamily: 'var(--font-brand)', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.7)' }}>
+                THE FIRST DAY WE MET
+              </div>
 
               <AnimatePresence>
                 {show1314 && (
@@ -315,7 +319,15 @@ export default function App() {
                       <input
                         type="password"
                         value={surprisePass}
-                        onChange={(e) => setSurprisePass(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setSurprisePass(val);
+                          // 使用 Base64 混淆比對 (MDQyMA== = 0420)
+                          if (window.btoa(val) === 'MDQyMA==') {
+                            setSurpriseTriggered(true);
+                            setSurprisePass('');
+                          }
+                        }}
                         placeholder="Master Password"
                         className="surprise-fancy-input-v2"
                       />
