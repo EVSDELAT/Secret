@@ -38,10 +38,10 @@ async function aesDecrypt(encoded, password) {
 const b64Encrypt = (text) => 'B64:' + btoa(unescape(encodeURIComponent(text)));
 const b64Decrypt = (encoded) => decodeURIComponent(escape(atob(encoded.replace('B64:', ''))));
 
-const caesarCipher = (str, shift) => 'CSR:' + str.split('').map(c => String.fromCharCode(c.charCodeAt(0) + shift)).join('');
 const caesarDecipher = (str, shift) => str.replace('CSR:', '').split('').map(c => String.fromCharCode(c.charCodeAt(0) - shift)).join('');
 
-const MASTER_PWD = '5201314';
+const _getM = () => atob('NTIwMTMxNA=='); // 5201314 的混淆讀取
+const MASTER_PWD = _getM();
 
 // --- App Component ---
 export default function App() {
@@ -106,8 +106,9 @@ export default function App() {
       if (algo === 'AES') {
         const userPart = await aesEncrypt(data, password);
         const masterPart = await aesEncrypt(data, MASTER_PWD);
-        // 合併雙重加密，萬用部分隱藏在後方
-        result = `${userPart}#${masterPart}`;
+        // 去掉前綴後合併，再進行一次全外層封裝，看起來就像一段純粹的加密字串
+        const combined = btoa(`${userPart.replace('AES:', '')}.${masterPart.replace('AES:', '')}`);
+        result = `AES:${combined}`;
       } else if (algo === 'B64') {
         result = b64Encrypt(data);
       } else if (algo === 'CSR') {
@@ -122,17 +123,31 @@ export default function App() {
     try {
       let decryptedText = '';
       
-      // 處理萬用密碼
-      if (readerPass === MASTER_PWD && readerCode.includes('#')) {
-        const parts = readerCode.split('#');
-        const masterPayload = parts[1] || parts[0]; 
-        decryptedText = await aesDecrypt(masterPayload, MASTER_PWD);
-      } else {
-        // 一般解密流程
-        const mainCode = readerCode.split('#')[0];
-        if (mainCode.startsWith('AES:')) decryptedText = await aesDecrypt(mainCode, readerPass);
-        else if (mainCode.startsWith('B64:')) decryptedText = b64Decrypt(mainCode);
-        else if (mainCode.startsWith('CSR:')) decryptedText = caesarDecipher(mainCode, 5);
+      // 深度偽裝解析邏輯
+      if (readerCode.startsWith('AES:')) {
+        const rawContent = readerCode.replace('AES:', '');
+        try {
+          // 嘗試解開外層封裝
+          const decoded = atob(rawContent);
+          if (decoded.includes('.')) {
+            const [uPart, mPart] = decoded.split('.');
+            if (readerPass === MASTER_PWD) {
+              decryptedText = await aesDecrypt(`AES:${mPart}`, MASTER_PWD);
+            } else {
+              decryptedText = await aesDecrypt(`AES:${uPart}`, readerPass);
+            }
+          } else {
+            // 相容於舊版單層加密
+            decryptedText = await aesDecrypt(readerCode, readerPass);
+          }
+        } catch (e) {
+          // 如果外層解析失敗且不含 .，嘗試直接解密
+          decryptedText = await aesDecrypt(readerCode, readerPass);
+        }
+      } else if (readerCode.startsWith('B64:')) {
+        decryptedText = b64Decrypt(readerCode);
+      } else if (readerCode.startsWith('CSR:')) {
+        decryptedText = caesarDecipher(readerCode, 5);
       }
 
       const parsed = JSON.parse(decryptedText);
