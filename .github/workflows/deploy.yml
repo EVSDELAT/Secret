@@ -1,9 +1,7 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch: # 改為手動觸發，不再自動隨 push 更新
 
 permissions:
   contents: write
