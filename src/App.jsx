@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Lock, Unlock, Gift, Plus, Trash2, Key, Copy, Eye, EyeOff, Volume2, VolumeX, Shield, Zap, Hash, X } from 'lucide-react';
+import { Lock, Unlock, Gift, Plus, Trash2, Key, Copy, Eye, EyeOff, Volume2, VolumeX, Shield, Zap, Hash, X, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- Encryption Algorithms ---
@@ -60,6 +60,8 @@ export default function App() {
   const [showHint, setShowHint] = useState(false);
   const [versionClicks, setVersionClicks] = useState(0);
   const [footerText, setFooterText] = useState('Version 5.2.0');
+  const [modalClicks, setModalClicks] = useState(0);
+  const [show1314, setShow1314] = useState(false);
 
   const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
@@ -125,12 +127,37 @@ export default function App() {
               exit={{ scale: 0.8, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="close-modal" onClick={() => setIsSurpriseOpen(false)}>
+              <button className="close-modal" onClick={() => { setIsSurpriseOpen(false); setModalClicks(0); setShow1314(false); }}>
                 <X size={24} />
               </button>
-              <Gift size={48} className="modal-icon" />
-              <h3>✨ 驚喜揭曉 ✨</h3>
-              <div className="surprise-text-area">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 15 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  const next = modalClicks + 1;
+                  setModalClicks(next);
+                  if (next >= 3) setShow1314(true);
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <Sparkles size={60} className="modal-icon-premium" />
+              </motion.div>
+              
+              <h3 className="modal-title-premium">驚喜揭曉</h3>
+              
+              <AnimatePresence>
+                {show1314 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10, scale: 0.5 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="easter-egg-1314"
+                  >
+                    1314 
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="surprise-text-area-premium">
                 {surpriseText}
               </div>
             </motion.div>
