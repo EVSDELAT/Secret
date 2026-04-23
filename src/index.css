@@ -158,6 +158,36 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.7; }
 }
+
+/* Premium Icon Shine & Halo */
+.surprise-icon-wrapper-premium {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.icon-halo {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 75%);
+  border-radius: 50%;
+  animation: pulse-aura 4s infinite alternate ease-in-out;
+  z-index: -1;
+  filter: blur(5px);
+}
+
+@keyframes pulse-aura {
+  from { transform: scale(0.9); opacity: 0.4; filter: blur(5px); }
+  to { transform: scale(1.4); opacity: 0.2; filter: blur(10px); }
+}
+
+.surprise-icon-premium path {
+  stroke-width: 1.5px;
+}
 .surprise-input-wrapper { width: 100%; max-width: 400px; }
 .surprise-fancy-input { 
   width: 100%; 
@@ -294,13 +324,15 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .main-card {
     flex-direction: column;
-    margin: 0 0 0 0; /* Full width edge to edge on mobile */
+    margin: 0; 
     border: none;
-    border-radius: 40px 40px 0 0; /* Round top only */
+    border-radius: 32px 32px 0 0; 
     height: auto;
-    min-height: calc(100vh - 120px);
-    background: linear-gradient(180deg, rgba(15, 15, 15, 0.95) 0%, rgba(5, 5, 5, 1) 100%);
-    box-shadow: none;
+    min-height: calc(100vh - 100px); /* 稍微拉高以填滿 */
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.98) 0%, rgba(5, 5, 5, 1) 100%);
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center; /* 垂直置中內容 */
   }
 
   /* Premium Bottom Nav */
@@ -357,9 +389,14 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .sidebar-footer { display: none; }
 
-  /* Content Spacing */
-  .main-content { padding: 2rem 1.5rem 12rem 1.5rem; }
-  .compact-layout { gap: 2rem; }
+  /* Content Spacing - Compressed for Single Page Fit */
+  .main-content { 
+    padding: 1rem 1rem 8rem 1rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .compact-layout { gap: 1.2rem; }
 
   .algo-grid { 
     grid-template-columns: repeat(3, 1fr);

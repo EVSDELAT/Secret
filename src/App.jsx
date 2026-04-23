@@ -108,6 +108,17 @@ export default function App() {
 
   return (
     <div className="app-container">
+      {/* SVG Deep Gradient Definition for Icons */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#c084fc" />
+            <stop offset="50%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#6366f1" />
+          </linearGradient>
+        </defs>
+      </svg>
+      
       <div className="bg-dynamic-glow" />
 
       {/* Surprise Popup Modal */}
@@ -128,7 +139,7 @@ export default function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button className="close-modal" onClick={() => { setIsSurpriseOpen(false); setModalClicks(0); setShow1314(false); }}>
-                <X size={24} />
+                <X size={24} style={{ stroke: 'url(#purple-gradient)' }} />
               </button>
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 15 }}
@@ -185,9 +196,9 @@ export default function App() {
                 className={`mode-btn ${activeTab === tab ? 'active' : ''}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab === 'creator' && <Lock size={16} />}
-                {tab === 'reader' && <Unlock size={16} />}
-                {tab === 'surprise' && <Gift size={16} />}
+                {tab === 'creator' && <Lock size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
+                {tab === 'reader' && <Unlock size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
+                {tab === 'surprise' && <Sparkles size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
                 <span>{tab === 'creator' ? '建立' : tab === 'reader' ? '開啟' : '驚喜'}</span>
               </button>
             ))}
@@ -284,13 +295,13 @@ export default function App() {
                 <div className="surprise-view-centered">
                   <motion.div
                     animate={{ 
-                      y: [0, -15, 0],
-                      rotate: [0, 5, -5, 0],
-                      scale: [1, 1.05, 1]
+                      y: [0, -10, 0],
+                      rotate: [0, 10, -10, 0],
+                      scale: [1, 1.1, 1]
                     }}
                     transition={{ 
                       repeat: Infinity, 
-                      duration: 6,
+                      duration: 5,
                       ease: "easeInOut"
                     }}
                     onClick={() => {
@@ -298,9 +309,10 @@ export default function App() {
                       setSurpriseClicks(newClicks);
                       if (newClicks >= 3) setShowHint(true);
                     }}
-                    style={{ cursor: 'pointer' }}
+                    className="surprise-icon-wrapper-premium"
                   >
-                    <Sparkles size={80} className="surprise-icon-premium" />
+                    <div className="icon-halo" />
+                    <Sparkles size={100} style={{ stroke: 'url(#purple-gradient)', filter: 'drop-shadow(0 0 15px rgba(139,92,246,0.6))' }} />
                   </motion.div>
                   
                   <h3 className="surprise-title-premium">SECRET RITUAL</h3>
