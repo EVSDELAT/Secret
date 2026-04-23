@@ -88,19 +88,76 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
 /* Surprise Centered Tab */
 .surprise-view-centered { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 5rem; }
-.gift-glow-icon { 
+.surprise-icon-premium { 
   color: var(--accent-color); 
-  filter: drop-shadow(0 0 20px var(--accent-glow)); 
-  margin-bottom: 2rem;
-  animation: pulse-glow 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 30px var(--accent-glow)); 
 }
-@keyframes pulse-glow {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px var(--accent-glow)); opacity: 0.8; }
-  50% { transform: scale(1.1); filter: drop-shadow(0 0 35px var(--accent-glow)); opacity: 1; }
+.surprise-title-premium { 
+  font-family: var(--font-brand);
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  margin: 1.5rem 0 2.5rem 0; 
+  letter-spacing: 0.6rem; 
+  background: linear-gradient(to bottom, #fff, #4a5568); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  opacity: 0.8;
 }
-.surprise-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.01em; background: linear-gradient(to bottom, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.surprise-hint { color: var(--primary-bg); font-size: 0.8rem; margin-top: 2rem; letter-spacing: 0.1em; transition: 0.8s; opacity: 0; pointer-events: none; }
-.surprise-hint.visible { color: #475569; opacity: 1; pointer-events: auto; }
+
+.surprise-glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 32px;
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5), inset 0 0 20px rgba(139,92,246,0.05);
+}
+
+.surprise-subtitle {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #4b5563;
+  letter-spacing: 0.3em;
+  margin-bottom: 1.5rem;
+}
+
+.surprise-fancy-input-v2 { 
+  width: 100%; 
+  background: rgba(0, 0, 0, 0.3); 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  border-radius: 16px; 
+  padding: 1.2rem; 
+  color: #fff; 
+  font-size: 2rem; 
+  text-align: center; 
+  letter-spacing: 1rem; 
+  transition: all 0.4s; 
+}
+.surprise-fancy-input-v2:focus { 
+  border-color: var(--accent-color); 
+  box-shadow: 0 0 30px rgba(139,92,246,0.2);
+  background: rgba(0,0,0,0.5);
+}
+
+.surprise-hint-v2 { 
+  margin-top: 2rem; 
+  font-size: 0.65rem; 
+  color: var(--accent-color); 
+  letter-spacing: 0.2em; 
+  opacity: 0; 
+  transition: 1s; 
+  font-weight: 600;
+}
+.surprise-hint-v2.visible { 
+  opacity: 0.5; 
+  animation: hint-breath 3s infinite;
+}
+@keyframes hint-breath {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
 .surprise-input-wrapper { width: 100%; max-width: 400px; }
 .surprise-fancy-input { 
   width: 100%; 

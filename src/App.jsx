@@ -283,8 +283,16 @@ export default function App() {
               {activeTab === 'surprise' && (
                 <div className="surprise-view-centered">
                   <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ repeat: Infinity, duration: 4 }}
+                    animate={{ 
+                      y: [0, -15, 0],
+                      rotate: [0, 5, -5, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 6,
+                      ease: "easeInOut"
+                    }}
                     onClick={() => {
                       const newClicks = surpriseClicks + 1;
                       setSurpriseClicks(newClicks);
@@ -292,19 +300,26 @@ export default function App() {
                     }}
                     style={{ cursor: 'pointer' }}
                   >
-                    <Gift size={64} className="gift-glow-icon" />
+                    <Sparkles size={80} className="surprise-icon-premium" />
                   </motion.div>
-                  <h3 className="surprise-title">Pisces Love Surprises&Gift</h3>
-                  <div className="surprise-input-wrapper">
-                    <input
-                      type="password"
-                      value={surprisePass}
-                      onChange={(e) => setSurprisePass(e.target.value)}
-                      placeholder="請輸入密碼"
-                      className="surprise-fancy-input"
-                    />
+                  
+                  <h3 className="surprise-title-premium">SECRET RITUAL</h3>
+                  
+                  <div className="surprise-glass-card">
+                    <p className="surprise-subtitle">INPUT ACCESS CODE</p>
+                    <div className="surprise-input-wrapper">
+                      <input
+                        type="password"
+                        value={surprisePass}
+                        onChange={(e) => setSurprisePass(e.target.value)}
+                        placeholder="••••"
+                        className="surprise-fancy-input-v2"
+                      />
+                    </div>
+                    <p className={`surprise-hint-v2 ${showHint ? 'visible' : ''}`}>
+                      HINT: THE FIRST DAY WE MET
+                    </p>
                   </div>
-                  <p className={`surprise-hint ${showHint ? 'visible' : ''}`}>The First Day We Met</p>
                 </div>
               )}
             </motion.div>
