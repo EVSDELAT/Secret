@@ -260,6 +260,8 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .mode-btn svg { width: 1.3rem; height: 1.3rem; margin-bottom: 2px; }
 
+  .sidebar-footer { display: none; }
+
   /* Content Spacing */
   .main-content { padding: 2rem 1.5rem 8rem 1.5rem; }
   .compact-layout { gap: 2rem; }
@@ -294,10 +296,18 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .footer { 
     display: block;
-    margin-top: 1rem;
-    padding-bottom: 120px; /* Space for the floating dock */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 0;
+    margin: 0;
+    text-align: center;
     opacity: 0.2;
-    cursor: pointer;
+    z-index: 5; /* Very low, below dock */
+    pointer-events: none; /* Let clicks pass through container to buttons */
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
   }
 }
 

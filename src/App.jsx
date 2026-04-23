@@ -165,19 +165,8 @@ export default function App() {
               </button>
             ))}
           </nav>
-          <div
-            className="sidebar-footer"
-            onClick={() => {
-              const next = versionClicks + 1;
-              setVersionClicks(next);
-              if (next >= 3) {
-                setFooterText('我也蠻喜歡你的');
-                setVersionClicks(0);
-                setTimeout(() => setFooterText('Version 5.2.0'), 3000);
-              }
-            }}
-            style={{ cursor: 'pointer' }}
-          >
+          {/* Mobile Footer moved to main app footer to avoid dock clutter */}
+          <div className="sidebar-footer">
             <p>{footerText}</p>
           </div>
         </aside>
@@ -299,7 +288,25 @@ export default function App() {
         </main>
       </section>
 
-      <footer className="footer">Powered By EVS-ZHAO TECH© 2026</footer>
+      <footer 
+        className="footer"
+        style={{ cursor: 'pointer' }}
+      >
+        <span
+          onClick={() => {
+            const next = versionClicks + 1;
+            setVersionClicks(next);
+            if (next >= 3) {
+              setFooterText('我也蠻喜歡你的 ');
+              setVersionClicks(0);
+              setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+            }
+          }}
+          style={{ pointerEvents: 'auto' }}
+        >
+          {activeTab === 'surprise' && versionClicks >= 3 ? "我也蠻喜歡你的" : `Powered By EVS-ZHAO TECH© 2026 | ${footerText}`}
+        </span>
+      </footer>
     </div>
   );
 }
