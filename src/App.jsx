@@ -62,7 +62,7 @@ export default function App() {
   const [footerText, setFooterText] = useState('Version 5.2.0');
   const [modalClicks, setModalClicks] = useState(0);
   const [show1314, setShow1314] = useState(false);
-  const [youtubeMusicId, setYoutubeMusicId] = useState('jfKfPfyJRdk'); 
+  const [youtubeMusicId] = useState(''); 
   const [customMusicUrl, setCustomMusicUrl] = useState('');
   const [activeDecryptedMusicId, setActiveDecryptedMusicId] = useState('');
 
@@ -162,13 +162,13 @@ export default function App() {
                 THE FIRST DAY WE MET
               </div>
 
-              {/* 音樂播放器：支援 Pisces 驚喜音樂與客製化加密音樂 */}
-              {(isSurpriseOpen || (decryptedData && activeDecryptedMusicId)) && (
+              {/* 音樂播放器：僅支援客製化加密音樂 */}
+              {decryptedData && activeDecryptedMusicId && (
                 <div style={{ display: 'none' }}>
                   <iframe
                     width="0"
                     height="0"
-                    src={`https://www.youtube.com/embed/${isSurpriseOpen ? youtubeMusicId : activeDecryptedMusicId}?autoplay=1&loop=1&playlist=${isSurpriseOpen ? youtubeMusicId : activeDecryptedMusicId}`}
+                    src={`https://www.youtube.com/embed/${activeDecryptedMusicId}?autoplay=1&loop=1&playlist=${activeDecryptedMusicId}`}
                     allow="autoplay"
                   ></iframe>
                 </div>
