@@ -223,8 +223,23 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
   resize: none;
 }
 
-.footer { text-align: center; padding: 2rem; font-size: 0.65rem; color: #2d3748; letter-spacing: 0.4em; position: fixed; bottom: 0; width: 100%; }
-.footer span { color: var(--accent-color); }
+.footer { 
+  text-align: center; 
+  padding: 3rem 1rem; 
+  font-size: 0.6rem; 
+  color: #64748b; /* Muted Slate */
+  letter-spacing: 0.5em; 
+  position: fixed; 
+  bottom: 0; 
+  width: 100%; 
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.footer:hover { opacity: 1; }
+.footer span { color: #94a3b8; font-weight: 500; }
 .footer-mobile-integrated { display: none; }
 
 /* --- RWD Mobile Optimizations --- */
@@ -372,8 +387,11 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
     width: 100%;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.55rem;
-    color: #475569;
+    color: #64748b;
     margin-top: 1rem !important;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
   }
 
   .desktop-footer {
