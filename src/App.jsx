@@ -263,6 +263,29 @@ export default function App() {
                       </div>
                     </div>
                   )}
+
+                  <footer 
+                    className="footer-mobile-integrated"
+                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
+                  >
+                    <span
+                      onClick={() => {
+                        const next = versionClicks + 1;
+                        setVersionClicks(next);
+                        if (next >= 3) {
+                          setFooterText('我也蠻喜歡你的 ');
+                          setVersionClicks(0);
+                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+                        }
+                      }}
+                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
+                    >
+                      <div>Powered By EVS-ZHAO TECH© 2026</div>
+                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
+                        {footerText}
+                      </div>
+                    </span>
+                  </footer>
                 </div>
               )}
 
@@ -288,6 +311,29 @@ export default function App() {
                       ))}
                     </div>
                   )}
+
+                  <footer 
+                    className="footer-mobile-integrated"
+                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
+                  >
+                    <span
+                      onClick={() => {
+                        const next = versionClicks + 1;
+                        setVersionClicks(next);
+                        if (next >= 3) {
+                          setFooterText('我也蠻喜歡你的 ');
+                          setVersionClicks(0);
+                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+                        }
+                      }}
+                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
+                    >
+                      <div>Powered By EVS-ZHAO TECH© 2026</div>
+                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
+                        {footerText}
+                      </div>
+                    </span>
+                  </footer>
                 </div>
               )}
 
@@ -332,33 +378,33 @@ export default function App() {
                       HINT: THE FIRST DAY WE MET
                     </p>
                   </div>
+
+                  <footer 
+                    className="footer-mobile-integrated"
+                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
+                  >
+                    <span
+                      onClick={() => {
+                        const next = versionClicks + 1;
+                        setVersionClicks(next);
+                        if (next >= 3) {
+                          setFooterText('我也蠻喜歡你的 ');
+                          setVersionClicks(0);
+                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+                        }
+                      }}
+                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
+                    >
+                      <div>Powered By EVS-ZHAO TECH© 2026</div>
+                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
+                        {footerText}
+                      </div>
+                    </span>
+                  </footer>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
-
-          <footer 
-            className="footer-mobile-integrated"
-            style={{ cursor: 'pointer', marginTop: '4rem', paddingBottom: '2rem', textAlign: 'center', opacity: 0.3 }}
-          >
-            <span
-              onClick={() => {
-                const next = versionClicks + 1;
-                setVersionClicks(next);
-                if (next >= 3) {
-                  setFooterText('我也蠻喜歡你的 ');
-                  setVersionClicks(0);
-                  setTimeout(() => setFooterText('Version 5.2.0'), 3000);
-                }
-              }}
-              style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
-            >
-              <div>Powered By EVS-ZHAO TECH© 2026</div>
-              <div style={{ marginTop: '0.5rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
-                {footerText}
-              </div>
-            </span>
-          </footer>
         </main>
       </section>
 
