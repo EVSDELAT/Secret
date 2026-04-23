@@ -62,6 +62,9 @@ export default function App() {
   const [footerText, setFooterText] = useState('Version 5.2.0');
   const [modalClicks, setModalClicks] = useState(0);
   const [show1314, setShow1314] = useState(false);
+  const [youtubeMusicId, setYoutubeMusicId] = useState('jfKfPfyJRdk'); 
+  const [customMusicUrl, setCustomMusicUrl] = useState('');
+  const [activeDecryptedMusicId, setActiveDecryptedMusicId] = useState('');
 
   const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
@@ -85,7 +88,15 @@ export default function App() {
 
   const handleGenerate = async () => {
     if (algo !== 'B64' && !password) { return alert('此方法需要設定密碼'); }
-    const data = JSON.stringify({ items: qaList, ts: Date.now() });
+    
+    // 擷取 YouTube ID
+    let musicId = '';
+    if (customMusicUrl) {
+      const match = customMusicUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|\/embed\/|\/v\/))([^?&"'>]+)/);
+      musicId = match ? match[1] : '';
+    }
+
+    const data = JSON.stringify({ items: qaList, musicId, ts: Date.now() });
     try {
       let result = '';
       if (algo === 'AES') result = await aesEncrypt(data, password);
@@ -102,7 +113,9 @@ export default function App() {
       if (readerCode.startsWith('AES:')) decryptedText = await aesDecrypt(readerCode, readerPass);
       else if (readerCode.startsWith('B64:')) decryptedText = b64Decrypt(readerCode);
       else if (readerCode.startsWith('CSR:')) decryptedText = caesarDecipher(readerCode, 5);
-      setDecryptedData(JSON.parse(decryptedText));
+      const parsed = JSON.parse(decryptedText);
+      setDecryptedData(parsed); 
+      if (parsed.musicId) setActiveDecryptedMusicId(parsed.musicId);
     } catch (e) { alert('密碼錯誤或代碼格式不符'); }
   };
 
@@ -149,7 +162,19 @@ export default function App() {
                 THE FIRST DAY WE MET
               </div>
 
-              <AnimatePresence>
+              {/* 音樂播放器：支援 Pisces 驚喜音樂與客製化加密音樂 */}
+              {(isSurpriseOpen || (decryptedData && activeDecryptedMusicId)) && (
+                <div style={{ display: 'none' }}>
+                  <iframe
+                    width="0"
+                    height="0"
+                    src={`https://www.youtube.com/embed/${isSurpriseOpen ? youtubeMusicId : activeDecryptedMusicId}?autoplay=1&loop=1&playlist=${isSurpriseOpen ? youtubeMusicId : activeDecryptedMusicId}`}
+                    allow="autoplay"
+                  ></iframe>
+                </div>
+              )}
+
+            <AnimatePresence>
                 {show1314 && (
                   <motion.div
                     initial={{ opacity: 0, y: -10, scale: 0.5 }}
@@ -211,6 +236,17 @@ export default function App() {
                       <button className={algo === 'B64' ? 'selected' : ''} onClick={() => setAlgo('B64')}>Base64 Lite</button>
                       <button className={algo === 'CSR' ? 'selected' : ''} onClick={() => setAlgo('CSR')}>Caesar Classic</button>
                     </div>
+                  </div>
+
+                  <div className="input-group">
+                    <label><Volume2 size={16} /> 背景音樂 / YT LINK (選填)</label>
+                    <input 
+                      type="text" 
+                      value={customMusicUrl} 
+                      onChange={(e) => setCustomMusicUrl(e.target.value)} 
+                      className="glass-input small" 
+                      placeholder="貼上 YouTube 網址或影片 ID..." 
+                    />
                   </div>
 
                   {algo !== 'B64' && (
