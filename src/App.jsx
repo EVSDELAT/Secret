@@ -299,7 +299,10 @@ export default function App() {
               }}
               style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
             >
-              Powered By EVS-ZHAO TECH© 2026 | {footerText}
+              <div>Powered By EVS-ZHAO TECH© 2026</div>
+              <div style={{ marginTop: '0.5rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
+                {footerText}
+              </div>
             </span>
           </footer>
         </main>
@@ -322,7 +325,10 @@ export default function App() {
           }}
           style={{ pointerEvents: 'auto' }}
         >
-          {activeTab === 'surprise' && versionClicks >= 3 ? "我也蠻喜歡你的" : `Powered By EVS-ZHAO TECH© 2026 | ${footerText}`}
+          <div>Powered By EVS-ZHAO TECH© 2026</div>
+          <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit' }}>
+            {footerText}
+          </div>
         </span>
       </footer>
     </div>
