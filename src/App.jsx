@@ -130,9 +130,12 @@ export default function App() {
     try {
       let decryptedText = '';
       
+      // 1. 先分離密碼提示 (如果有)
+      const [mainPart, hintPart] = readerCode.split('|');
+      
       // 深度偽裝解析邏輯
-      if (readerCode.startsWith('AES:')) {
-        const rawContent = readerCode.replace('AES:', '');
+      if (mainPart.startsWith('AES:')) {
+        const rawContent = mainPart.replace('AES:', '');
         try {
           // 嘗試解開外層封裝
           const decoded = atob(rawContent);
@@ -145,16 +148,16 @@ export default function App() {
             }
           } else {
             // 相容於舊版單層加密
-            decryptedText = await aesDecrypt(readerCode, readerPass);
+            decryptedText = await aesDecrypt(mainPart, readerPass);
           }
         } catch (e) {
-          // 如果外層解析失敗且不含 .，嘗試直接解密
-          decryptedText = await aesDecrypt(readerCode, readerPass);
+          // 如果外層解析失敗，嘗試直接作為單層加密處理
+          decryptedText = await aesDecrypt(mainPart, readerPass);
         }
-      } else if (readerCode.startsWith('B64:')) {
-        decryptedText = b64Decrypt(readerCode);
-      } else if (readerCode.startsWith('CSR:')) {
-        decryptedText = caesarDecipher(readerCode, 5);
+      } else if (mainPart.startsWith('B64:')) {
+        decryptedText = b64Decrypt(mainPart);
+      } else if (mainPart.startsWith('CSR:')) {
+        decryptedText = caesarDecipher(mainPart, 5);
       }
 
       const parsed = JSON.parse(decryptedText);
