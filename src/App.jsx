@@ -174,6 +174,18 @@ export default function App() {
                 THE FIRST DAY WE MET
               </div>
 
+              <AnimatePresence>
+                {show1314 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.5 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="easter-egg-1314"
+                  >
+                    1314
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <div className="surprise-text-area-premium">
                 {surpriseText}
               </div>
