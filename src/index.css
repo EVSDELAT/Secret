@@ -334,13 +334,46 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
     background: rgba(255,255,255,0.02);
   }
 
-  /* Integrated Footer in Scroll Area */
+  /* Surprise Ritual - Mobile Compact Overrides */
+  .surprise-view-centered { 
+    gap: 0.8rem; 
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+  }
+  
+  .surprise-icon-wrapper-premium { margin-bottom: 0.5rem; }
+  .surprise-icon-wrapper-premium svg { width: 60px; height: 60px; }
+  .icon-halo { display: none; } /* Remove space-consuming halo on mobile */
+
+  .surprise-title-premium {
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  .surprise-glass-card {
+    padding: 1.2rem;
+    border-radius: 20px;
+    margin-bottom: 0;
+  }
+
+  .surprise-subtitle { margin-bottom: 1rem; font-size: 0.65rem; }
+  
+  .surprise-fancy-input-v2 {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+    letter-spacing: 0.6rem;
+  }
+
+  .surprise-hint-v2 { margin-top: 0.5rem; }
+  
   .footer-mobile-integrated {
     display: block;
     width: 100%;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.55rem;
     color: #475569;
+    margin-top: 1rem !important;
   }
 
   .desktop-footer {
@@ -350,7 +383,6 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
     pointer-events: none;
   }
 
-  /* Remove the fixed bottom mask since it's no longer needed */
   .app-container::after {
     display: none;
   }
