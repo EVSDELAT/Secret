@@ -69,6 +69,7 @@ export default function App() {
   const [activeDecryptedMusicId, setActiveDecryptedMusicId] = useState('');
   const [personalClicks, setPersonalClicks] = useState(0);
   const [isMusicInputVisible, setIsMusicInputVisible] = useState(false);
+  const [passwordHint, setPasswordHint] = useState('');
 
   const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
@@ -114,7 +115,13 @@ export default function App() {
       } else if (algo === 'CSR') {
         result = caesarCipher(data, 5);
       }
-      setVaultCode(result);
+      
+      // 附加密碼提示 (Base64 處理避免破壞結構)
+      if (passwordHint) {
+        setVaultCode(`${result}|${btoa(encodeURIComponent(passwordHint))}`);
+      } else {
+        setVaultCode(result);
+      }
     } catch (e) { alert('加密失敗'); }
   };
 
@@ -306,15 +313,28 @@ export default function App() {
                   </AnimatePresence>
 
                   {algo !== 'B64' && (
-                    <div className="input-group">
-                      <label>通解密碼 / MASTER PASS</label>
-                      <div className="relative-container">
-                        <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} className="glass-input small pr-icon" placeholder="輸入解密用的主密碼..." />
-                        <button className="input-icon-btn" onClick={() => setShowPassword(!showPassword)}>
-                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </button>
+                    <>
+                      <div className="input-group">
+                        <label>通解密碼 / MASTER PASS</label>
+                        <div className="relative-container">
+                          <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} className="glass-input small pr-icon" placeholder="輸入解密用的主密碼..." />
+                          <button className="input-icon-btn" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                          </button>
+                        </div>
                       </div>
-                    </div>
+
+                      <div className="input-group">
+                        <label><Sparkles size={14} /> 密碼提示 / HINT (選填)</label>
+                        <input 
+                          type="text" 
+                          value={passwordHint} 
+                          onChange={(e) => setPasswordHint(e.target.value)} 
+                          className="glass-input small" 
+                          placeholder="給對方的一點線索..." 
+                        />
+                      </div>
+                    </>
                   )}
 
                   <div className="qa-section">
@@ -360,6 +380,18 @@ export default function App() {
                   <div className="input-group">
                     <label>密鑰驗證 / AUTH</label>
                     <input type="password" value={readerPass} onChange={(e) => setReaderPass(e.target.value)} className="glass-input small" placeholder="輸入解鎖密語..." />
+                    
+                    {/* 密碼提示顯示 */}
+                    {readerCode && readerCode.includes('|') && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="password-hint-bubble"
+                      >
+                        <Sparkles size={12} className="hint-icon" />
+                        <span>提示：{decodeURIComponent(atob(readerCode.split('|')[1]))}</span>
+                      </motion.div>
+                    )}
                   </div>
                   <button className="primary-btn small" onClick={handleUnlock}><Unlock size={16} /> 啟封 / DECODE</button>
 
