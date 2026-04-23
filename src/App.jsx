@@ -285,11 +285,32 @@ export default function App() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          <footer 
+            className="footer-mobile-integrated"
+            style={{ cursor: 'pointer', marginTop: '4rem', paddingBottom: '2rem', textAlign: 'center', opacity: 0.3 }}
+          >
+            <span
+              onClick={() => {
+                const next = versionClicks + 1;
+                setVersionClicks(next);
+                if (next >= 3) {
+                  setFooterText('我也蠻喜歡你的 ');
+                  setVersionClicks(0);
+                  setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+                }
+              }}
+              style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
+            >
+              Powered By EVS-ZHAO TECH© 2026 | {footerText}
+            </span>
+          </footer>
         </main>
       </section>
 
+      {/* Desktop only footer - Hidden on mobile via CSS */}
       <footer 
-        className="footer"
+        className="footer desktop-footer"
         style={{ cursor: 'pointer' }}
       >
         <span
