@@ -142,17 +142,17 @@ export default function App() {
               >
                 <Sparkles size={60} className="modal-icon-premium" />
               </motion.div>
-              
+
               <h3 className="modal-title-premium">驚喜揭曉</h3>
-              
+
               <AnimatePresence>
                 {show1314 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: -10, scale: 0.5 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     className="easter-egg-1314"
                   >
-                    1314 
+                    1314
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -185,9 +185,9 @@ export default function App() {
                 className={`mode-btn ${activeTab === tab ? 'active' : ''}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab === 'creator' && <Lock size={16} />}
-                {tab === 'reader' && <Unlock size={16} />}
-                {tab === 'surprise' && <Gift size={16} />}
+                {tab === 'creator' && <Lock size={18} stroke={activeTab === tab ? "url(#premium-grad)" : "currentColor"} />}
+                {tab === 'reader' && <Unlock size={18} stroke={activeTab === tab ? "url(#premium-grad)" : "currentColor"} />}
+                {tab === 'surprise' && <Gift size={18} stroke={activeTab === tab ? "url(#premium-grad)" : "currentColor"} />}
                 <span>{tab === 'creator' ? '建立' : tab === 'reader' ? '開啟' : '驚喜'}</span>
               </button>
             ))}
@@ -282,35 +282,55 @@ export default function App() {
 
               {activeTab === 'surprise' && (
                 <div className="surprise-view-centered">
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ repeat: Infinity, duration: 4 }}
+                  <div
+                    className="surprise-icon-wrapper-premium"
                     onClick={() => {
                       const newClicks = surpriseClicks + 1;
                       setSurpriseClicks(newClicks);
                       if (newClicks >= 3) setShowHint(true);
                     }}
-                    style={{ cursor: 'pointer' }}
                   >
-                    <Gift size={64} className="gift-glow-icon" />
-                  </motion.div>
-                  <h3 className="surprise-title">Pisces Love Surprises&Gift</h3>
-                  <div className="surprise-input-wrapper">
-                    <input
-                      type="password"
-                      value={surprisePass}
-                      onChange={(e) => setSurprisePass(e.target.value)}
-                      placeholder="請輸入密碼"
-                      className="surprise-fancy-input"
-                    />
+                    <div className="icon-halo"></div>
+                    {/* Unique light flare for high-end refractive effect */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '15%',
+                      left: '15%',
+                      width: '6px',
+                      height: '6px',
+                      background: 'rgba(255,255,255,0.9)',
+                      borderRadius: '50%',
+                      filter: 'blur(3px)',
+                      boxShadow: '0 0 15px #fff',
+                      zIndex: 3
+                    }}></div>
+                    <Gift size={72} strokeWidth={1.2} className="gift-glow-icon-v2" style={{ stroke: 'url(#premium-grad)', fill: 'none' }} />
                   </div>
-                  <p className={`surprise-hint ${showHint ? 'visible' : ''}`}>The First Day We Met</p>
+
+                  <div className="surprise-glass-card">
+                    <h3 className="surprise-title-premium">Pisces Emphasize</h3>
+                    <p className="surprise-subtitle">Gifts & Surprises</p>
+
+                    <div className="surprise-input-wrapper-v2">
+                      <input
+                        type="password"
+                        value={surprisePass}
+                        onChange={(e) => setSurprisePass(e.target.value)}
+                        placeholder="Master Password"
+                        className="surprise-fancy-input-v2"
+                      />
+                    </div>
+
+                    <p className={`surprise-hint-v2 ${showHint ? 'visible' : ''}`}>
+                      The First Day We Met
+                    </p>
+                  </div>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
 
-          <footer 
+          <footer
             className="footer-mobile-integrated"
             style={{ cursor: 'pointer', marginTop: '4rem', paddingBottom: '2rem', textAlign: 'center', opacity: 0.3 }}
           >
@@ -336,7 +356,7 @@ export default function App() {
       </section>
 
       {/* Desktop-only footer logic: Only renders if window width is likely desktop or not on mobile */}
-      <footer 
+      <footer
         className="footer desktop-footer"
         style={{ cursor: 'pointer' }}
       >
@@ -358,6 +378,16 @@ export default function App() {
           </div>
         </span>
       </footer>
+
+      {/* Premium SVG Gradients Definition */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <linearGradient id="premium-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#8b5cf6' }} />
+            <stop offset="100%" style={{ stopColor: '#ec4899' }} />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   );
 }
