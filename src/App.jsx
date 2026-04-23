@@ -65,6 +65,8 @@ export default function App() {
   const [youtubeMusicId] = useState(''); 
   const [customMusicUrl, setCustomMusicUrl] = useState('');
   const [activeDecryptedMusicId, setActiveDecryptedMusicId] = useState('');
+  const [personalClicks, setPersonalClicks] = useState(0);
+  const [isMusicInputVisible, setIsMusicInputVisible] = useState(false);
 
   const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
@@ -204,7 +206,17 @@ export default function App() {
       <section className="main-card">
         <aside className="sidebar">
           <div className="brand-section">
-            <h1 className="brand-title">PERSONAL</h1>
+            <h1 
+              className="brand-title" 
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => {
+                const next = personalClicks + 1;
+                setPersonalClicks(next);
+                if (next >= 3) setIsMusicInputVisible(true);
+              }}
+            >
+              PERSONAL
+            </h1>
             <span className="brand-secret">SECRET</span>
           </div>
           <nav className="nav-list">
@@ -238,16 +250,25 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="input-group">
-                    <label><Volume2 size={16} /> 背景音樂 / YT LINK (選填)</label>
-                    <input 
-                      type="text" 
-                      value={customMusicUrl} 
-                      onChange={(e) => setCustomMusicUrl(e.target.value)} 
-                      className="glass-input small" 
-                      placeholder="貼上 YouTube 網址或影片 ID..." 
-                    />
-                  </div>
+                  <AnimatePresence>
+                    {isMusicInputVisible && (
+                      <motion.div 
+                        className="input-group"
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: 'auto', marginTop: '1rem' }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      >
+                        <label><Volume2 size={16} /> 背景音樂 / YT LINK (選填)</label>
+                        <input 
+                          type="text" 
+                          value={customMusicUrl} 
+                          onChange={(e) => setCustomMusicUrl(e.target.value)} 
+                          className="glass-input small" 
+                          placeholder="貼上 YouTube 網址或影片 ID..." 
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {algo !== 'B64' && (
                     <div className="input-group">
