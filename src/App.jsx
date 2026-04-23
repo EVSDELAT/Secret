@@ -122,6 +122,18 @@ export default function App() {
   return (
     <div className="app-container">
       <div className="bg-dynamic-glow" />
+      
+      {/* 全域背景音樂 (僅限解密成功後啟動) */}
+      {decryptedData && activeDecryptedMusicId && (
+        <div style={{ display: 'none' }}>
+          <iframe
+            width="0"
+            height="0"
+            src={`https://www.youtube.com/embed/${activeDecryptedMusicId}?autoplay=1&mute=0&autohide=1&controls=0&autoplay=1&loop=1&playlist=${activeDecryptedMusicId}`}
+            allow="autoplay"
+          ></iframe>
+        </div>
+      )}
 
       {/* Surprise Popup Modal */}
       <AnimatePresence>
@@ -161,30 +173,6 @@ export default function App() {
               <div style={{ marginTop: '1.5rem', fontFamily: 'var(--font-brand)', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.7)' }}>
                 THE FIRST DAY WE MET
               </div>
-
-              {/* 音樂播放器：僅支援客製化加密音樂 */}
-              {decryptedData && activeDecryptedMusicId && (
-                <div style={{ display: 'none' }}>
-                  <iframe
-                    width="0"
-                    height="0"
-                    src={`https://www.youtube.com/embed/${activeDecryptedMusicId}?autoplay=1&loop=1&playlist=${activeDecryptedMusicId}`}
-                    allow="autoplay"
-                  ></iframe>
-                </div>
-              )}
-
-            <AnimatePresence>
-                {show1314 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.5 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="easter-egg-1314"
-                  >
-                    1314
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
               <div className="surprise-text-area-premium">
                 {surpriseText}
