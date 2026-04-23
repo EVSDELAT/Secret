@@ -165,10 +165,7 @@ export default function App() {
               </button>
             ))}
           </nav>
-          {/* Mobile Footer moved to main app footer to avoid dock clutter */}
-          <div className="sidebar-footer">
-            <p>{footerText}</p>
-          </div>
+          {/* Removed sidebar-footer to prevent duplication in mobile dock */}
         </aside>
 
         <main className="main-content">
@@ -308,7 +305,7 @@ export default function App() {
         </main>
       </section>
 
-      {/* Desktop only footer - Hidden on mobile via CSS */}
+      {/* Desktop-only footer logic: Only renders if window width is likely desktop or not on mobile */}
       <footer 
         className="footer desktop-footer"
         style={{ cursor: 'pointer' }}

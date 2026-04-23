@@ -306,13 +306,15 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .desktop-footer {
     display: none !important;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
 
-  /* Remove the fixed bottom mask since it's no longer needed for text overlap */
+  /* Remove the fixed bottom mask since it's no longer needed */
   .app-container::after {
     display: none;
   }
-}
 }
 
 /* Modal Premium Optimization */
