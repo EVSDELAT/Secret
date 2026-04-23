@@ -108,16 +108,6 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Persistant SVG Definition for Mobile Rendering Stability */}
-      <svg width="1" height="1" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', visibility: 'hidden' }}>
-        <defs>
-          <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#c084fc" />
-            <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#6366f1" />
-          </linearGradient>
-        </defs>
-      </svg>
       <div className="bg-dynamic-glow" />
 
       {/* Surprise Popup Modal */}
@@ -138,7 +128,7 @@ export default function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button className="close-modal" onClick={() => { setIsSurpriseOpen(false); setModalClicks(0); setShow1314(false); }}>
-                <X size={24} style={{ stroke: 'url(#purple-gradient)' }} />
+                <X size={24} />
               </button>
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 15 }}
@@ -195,9 +185,9 @@ export default function App() {
                 className={`mode-btn ${activeTab === tab ? 'active' : ''}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab === 'creator' && <Lock size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
-                {tab === 'reader' && <Unlock size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
-                {tab === 'surprise' && <Sparkles size={20} style={{ stroke: activeTab === tab ? 'url(#purple-gradient)' : '#475569' }} />}
+                {tab === 'creator' && <Lock size={16} />}
+                {tab === 'reader' && <Unlock size={16} />}
+                {tab === 'surprise' && <Gift size={16} />}
                 <span>{tab === 'creator' ? '建立' : tab === 'reader' ? '開啟' : '驚喜'}</span>
               </button>
             ))}
@@ -262,29 +252,6 @@ export default function App() {
                       </div>
                     </div>
                   )}
-
-                  <footer 
-                    className="footer-mobile-integrated"
-                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
-                  >
-                    <span
-                      onClick={() => {
-                        const next = versionClicks + 1;
-                        setVersionClicks(next);
-                        if (next >= 3) {
-                          setFooterText('我也蠻喜歡你的 ');
-                          setVersionClicks(0);
-                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
-                        }
-                      }}
-                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
-                    >
-                      <div>Powered By EVS-ZHAO TECH© 2026</div>
-                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
-                        {footerText}
-                      </div>
-                    </span>
-                  </footer>
                 </div>
               )}
 
@@ -310,104 +277,61 @@ export default function App() {
                       ))}
                     </div>
                   )}
-
-                  <footer 
-                    className="footer-mobile-integrated"
-                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
-                  >
-                    <span
-                      onClick={() => {
-                        const next = versionClicks + 1;
-                        setVersionClicks(next);
-                        if (next >= 3) {
-                          setFooterText('我也蠻喜歡你的 ');
-                          setVersionClicks(0);
-                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
-                        }
-                      }}
-                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
-                    >
-                      <div>Powered By EVS-ZHAO TECH© 2026</div>
-                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
-                        {footerText}
-                      </div>
-                    </span>
-                  </footer>
                 </div>
               )}
 
               {activeTab === 'surprise' && (
                 <div className="surprise-view-centered">
-                  <div className="surprise-header-compact">
-                    <motion.div
-                      animate={{ 
-                        rotate: [0, 15, -15, 0],
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ repeat: Infinity, duration: 4 }}
-                      onClick={() => {
-                        const newClicks = surpriseClicks + 1;
-                        setSurpriseClicks(newClicks);
-                        if (newClicks >= 3) setShowHint(true);
-                      }}
-                      className="surprise-icon-small-wrapper"
-                    >
-                      <Sparkles 
-                        size={32} 
-                        stroke="url(#purple-gradient)"
-                        fill="none"
-                        strokeWidth={1.5}
-                        style={{ filter: 'drop-shadow(0 0 10px rgba(139,92,246,0.3))' }}
-                      />
-                    </motion.div>
-                    <div className="surprise-title-compact">
-                      <span>SECRET</span>
-                      <span className="accent">RITUAL</span>
-                    </div>
-                  </div>
-                  
-                  <div className="surprise-glass-card">
-                    <p className="surprise-subtitle">INPUT ACCESS CODE</p>
-                    <div className="surprise-input-wrapper">
-                      <input
-                        type="password"
-                        value={surprisePass}
-                        onChange={(e) => setSurprisePass(e.target.value)}
-                        placeholder="••••"
-                        className="surprise-fancy-input-v2"
-                      />
-                    </div>
-                    <p className={`surprise-hint-v2 ${showHint ? 'visible' : ''}`}>
-                      HINT: THE FIRST DAY WE MET
-                    </p>
-                  </div>
-
-                  <footer 
-                    className="footer-mobile-integrated"
-                    style={{ cursor: 'pointer', marginTop: '1.5rem', paddingBottom: '1rem', textAlign: 'center', opacity: 0.3 }}
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 4 }}
+                    onClick={() => {
+                      const newClicks = surpriseClicks + 1;
+                      setSurpriseClicks(newClicks);
+                      if (newClicks >= 3) setShowHint(true);
+                    }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <span
-                      onClick={() => {
-                        const next = versionClicks + 1;
-                        setVersionClicks(next);
-                        if (next >= 3) {
-                          setFooterText('我也蠻喜歡你的 ');
-                          setVersionClicks(0);
-                          setTimeout(() => setFooterText('Version 5.2.0'), 3000);
-                        }
-                      }}
-                      style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
-                    >
-                      <div>Powered By EVS-ZHAO TECH© 2026</div>
-                      <div style={{ marginTop: '0.4rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
-                        {footerText}
-                      </div>
-                    </span>
-                  </footer>
+                    <Gift size={64} className="gift-glow-icon" />
+                  </motion.div>
+                  <h3 className="surprise-title">Pisces Love Surprises&Gift</h3>
+                  <div className="surprise-input-wrapper">
+                    <input
+                      type="password"
+                      value={surprisePass}
+                      onChange={(e) => setSurprisePass(e.target.value)}
+                      placeholder="請輸入密碼"
+                      className="surprise-fancy-input"
+                    />
+                  </div>
+                  <p className={`surprise-hint ${showHint ? 'visible' : ''}`}>The First Day We Met</p>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
+
+          <footer 
+            className="footer-mobile-integrated"
+            style={{ cursor: 'pointer', marginTop: '4rem', paddingBottom: '2rem', textAlign: 'center', opacity: 0.3 }}
+          >
+            <span
+              onClick={() => {
+                const next = versionClicks + 1;
+                setVersionClicks(next);
+                if (next >= 3) {
+                  setFooterText('我也蠻喜歡你的 ');
+                  setVersionClicks(0);
+                  setTimeout(() => setFooterText('Version 5.2.0'), 3000);
+                }
+              }}
+              style={{ pointerEvents: 'auto', fontSize: '0.55rem', letterSpacing: '0.2em' }}
+            >
+              <div>Powered By EVS-ZHAO TECH© 2026</div>
+              <div style={{ marginTop: '0.5rem', color: footerText.includes('喜歡') ? 'var(--accent-color)' : 'inherit', opacity: footerText.includes('喜歡') ? 1 : 0.8 }}>
+                {footerText}
+              </div>
+            </span>
+          </footer>
         </main>
       </section>
 
