@@ -389,14 +389,15 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
   .sidebar-footer { display: none; }
 
-  /* Content Spacing - Compressed for Single Page Fit */
+  /* Content Spacing - Responsive Scrolling Support */
   .main-content { 
-    padding: 1rem 1rem 8rem 1rem; 
+    padding: 1rem 1rem 9rem 1rem; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .compact-layout { gap: 1.2rem; }
+  .compact-layout { gap: 1rem; }
 
   .algo-grid { 
     grid-template-columns: repeat(3, 1fr);

@@ -108,8 +108,8 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* SVG Deep Gradient Definition for Icons */}
-      <svg width="0" height="0" style={{ position: 'absolute' }}>
+      {/* Persistant SVG Definition for Mobile Rendering Stability */}
+      <svg width="1" height="1" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', visibility: 'hidden' }}>
         <defs>
           <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#c084fc" />
@@ -118,7 +118,6 @@ export default function App() {
           </linearGradient>
         </defs>
       </svg>
-      
       <div className="bg-dynamic-glow" />
 
       {/* Surprise Popup Modal */}
@@ -356,9 +355,21 @@ export default function App() {
                       if (newClicks >= 3) setShowHint(true);
                     }}
                     className="surprise-icon-wrapper-premium"
+                    style={{ zIndex: 50, position: 'relative' }}
                   >
                     <div className="icon-halo" />
-                    <Sparkles size={100} style={{ stroke: 'url(#purple-gradient)', filter: 'drop-shadow(0 0 15px rgba(139,92,246,0.6))' }} />
+                    <Sparkles 
+                      size={100} 
+                      stroke="url(#purple-gradient)"
+                      fill="none"
+                      strokeWidth={1.5}
+                      className="surprise-icon-premium"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 15px rgba(139,92,246,0.5))',
+                        position: 'relative',
+                        zIndex: 51
+                      }} 
+                    />
                   </motion.div>
                   
                   <h3 className="surprise-title-premium">SECRET RITUAL</h3>
