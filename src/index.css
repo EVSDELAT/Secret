@@ -293,7 +293,11 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
   }
 
   .footer { 
-    display: none; /* Hide standard footer to prioritize clean design */
+    display: block;
+    margin-top: 1rem;
+    padding-bottom: 120px; /* Space for the floating dock */
+    opacity: 0.2;
+    cursor: pointer;
   }
 }
 
