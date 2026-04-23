@@ -158,83 +158,117 @@ label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--accent
 
 /* --- RWD Mobile Optimizations --- */
 @media (max-width: 768px) {
-  body { overflow: auto; } /* Allow scrolling on mobile if content overflows */
+  body { overflow-x: hidden; }
 
-  .page-header { padding: 1.5rem 1.5rem 0.5rem 1.5rem; text-align: center; }
-  .header-titles h2 { font-size: 1.2rem; }
+  .page-header { padding: 2rem 1.5rem 1rem 1.5rem; text-align: center; }
+  .header-titles h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.1rem; }
+  .subtitle-en { font-size: 0.55rem; opacity: 0.6; margin-top: 0.5rem; }
 
   .main-card {
     flex-direction: column;
-    margin: 0.5rem 1rem 1.5rem 1rem;
-    border-radius: 20px;
+    margin: 0 0 0 0; /* Full width edge to edge on mobile */
+    border: none;
+    border-radius: 40px 40px 0 0; /* Round top only */
     height: auto;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 120px);
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.95) 0%, rgba(5, 5, 5, 1) 100%);
+    box-shadow: none;
   }
 
-  /* Transform Sidebar to Bottom Nav on Mobile */
+  /* Premium Bottom Nav */
   .sidebar {
-    width: 100%;
-    height: auto;
+    width: 90%;
+    max-width: 400px;
+    height: 70px;
     flex-direction: row;
-    order: 2; /* Move to bottom of the card */
-    padding: 0.8rem;
-    gap: 0.5rem;
-    background: rgba(15, 15, 15, 0.95);
-    border-right: none;
-    border-top: 1px solid var(--border-color);
-    position: sticky;
-    bottom: 0;
-    z-index: 50;
+    order: 2;
+    padding: 0 1rem;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
 
-  .brand-title { display: none; } /* Hide branding in bottom nav */
+  .brand-title { display: none; }
 
   .nav-list {
     flex-direction: row;
     width: 100%;
+    height: 100%;
     justify-content: space-around;
+    align-items: center;
   }
 
   .mode-btn {
-    padding: 0.8rem;
-    flex-direction: column;
-    gap: 0.3rem;
-    font-size: 0.65rem;
-    border-radius: 12px;
-  }
-
-  .mode-btn svg { width: 1.2rem; height: 1.2rem; }
-
-  .sidebar-footer { display: none; } /* Hide version info on mobile side */
-
-  /* Main Content Adjustments */
-  .main-content { padding: 1.5rem; }
-  .compact-layout { gap: 1.5rem; }
-
-  .algo-grid { grid-template-columns: 1fr; } /* Stack algorithms on mobile */
-
-  .surprise-title { font-size: 1.4rem; }
-  .surprise-fancy-input { font-size: 1.5rem; padding: 1.2rem; letter-spacing: 0.4rem; }
-
-  /* Modal Adjustments */
-  .surprise-modal-content {
-    padding: 2.5rem 1.5rem;
-    border-radius: 24px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .surprise-text-area {
-    font-size: 1rem;
-    max-height: none;
     flex: 1;
+    height: 50px;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    border-radius: 14px;
+    background: transparent;
+    color: #475569;
   }
 
-  .footer { margin-bottom: 80px; } /* Space for bottom nav */
+  .mode-btn.active {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--accent-color);
+    border-color: transparent;
+  }
+
+  .mode-btn svg { width: 1.3rem; height: 1.3rem; margin-bottom: 2px; }
+
+  /* Content Spacing */
+  .main-content { padding: 2rem 1.5rem 8rem 1.5rem; }
+  .compact-layout { gap: 2rem; }
+
+  .algo-grid { 
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .algo-grid button {
+    padding: 1rem;
+    font-size: 0.75rem;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .glass-input.small { 
+    padding: 1.2rem;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .qa-card-premium { margin-bottom: 0.8rem; }
+  .qa-line { padding: 0.8rem 1.2rem; gap: 1rem; }
+
+  .surprise-title { font-size: 1.3rem; }
+  .surprise-fancy-input { 
+    font-size: 1.8rem; 
+    padding: 1.5rem; 
+    border-radius: 24px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .footer { 
+    display: none; /* Hide standard footer to prioritize clean design */
+  }
 }
 
-/* Fix for Safari/iOS dynamic bar */
-@supports (-webkit-touch-callout: none) {
-  .app-container { height: -webkit-fill-available; }
+/* Modal Premium Optimization */
+@media (max-width: 768px) {
+  .surprise-modal-overlay { padding: 1.5rem; }
+  .surprise-modal-content {
+    padding: 3rem 1.5rem 2rem 1.5rem;
+    border-radius: 32px;
+  }
 }
