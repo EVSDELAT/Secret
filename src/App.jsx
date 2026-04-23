@@ -62,6 +62,7 @@ export default function App() {
   const [footerText, setFooterText] = useState('Version 5.2.0');
   const [modalClicks, setModalClicks] = useState(0);
   const [show1314, setShow1314] = useState(false);
+  const [youtubeMusicId, setYoutubeMusicId] = useState('jfKfPfyJRdk'); // 預設浪漫曲目
 
   const surpriseText = `擔心說了這些會後悔 有些事不做或許未來更遺憾\n If I had enough time and the opportunity, I’d really love to see you.`; // 預設內容
 
@@ -149,7 +150,19 @@ export default function App() {
                 THE FIRST DAY WE MET
               </div>
 
-              <AnimatePresence>
+              {/* 背景音樂播放器 (隱形) */}
+              {isSurpriseOpen && youtubeMusicId && (
+              <div style={{ display: 'none' }}>
+                <iframe
+                  width="0"
+                  height="0"
+                  src={`https://www.youtube.com/embed/${youtubeMusicId}?autoplay=1&loop=1&playlist=${youtubeMusicId}`}
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            )}
+
+            <AnimatePresence>
                 {show1314 && (
                   <motion.div
                     initial={{ opacity: 0, y: -10, scale: 0.5 }}
@@ -324,7 +337,7 @@ export default function App() {
                           setSurprisePass(val);
                           // 使用 Base64 混淆比對 (MDQyMA== = 0420)
                           if (window.btoa(val) === 'MDQyMA==') {
-                            setSurpriseTriggered(true);
+                            setIsSurpriseOpen(true);
                             setSurprisePass('');
                           }
                         }}
