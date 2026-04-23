@@ -338,41 +338,33 @@ export default function App() {
 
               {activeTab === 'surprise' && (
                 <div className="surprise-view-centered">
-                  <motion.div
-                    animate={{ 
-                      y: [0, -10, 0],
-                      rotate: [0, 10, -10, 0],
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{ 
-                      repeat: Infinity, 
-                      duration: 5,
-                      ease: "easeInOut"
-                    }}
-                    onClick={() => {
-                      const newClicks = surpriseClicks + 1;
-                      setSurpriseClicks(newClicks);
-                      if (newClicks >= 3) setShowHint(true);
-                    }}
-                    className="surprise-icon-wrapper-premium"
-                    style={{ zIndex: 50, position: 'relative' }}
-                  >
-                    <div className="icon-halo" />
-                    <Sparkles 
-                      size={100} 
-                      stroke="url(#purple-gradient)"
-                      fill="none"
-                      strokeWidth={1.5}
-                      className="surprise-icon-premium"
-                      style={{ 
-                        filter: 'drop-shadow(0 0 15px rgba(139,92,246,0.5))',
-                        position: 'relative',
-                        zIndex: 51
-                      }} 
-                    />
-                  </motion.div>
-                  
-                  <h3 className="surprise-title-premium">SECRET RITUAL</h3>
+                  <div className="surprise-header-compact">
+                    <motion.div
+                      animate={{ 
+                        rotate: [0, 15, -15, 0],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ repeat: Infinity, duration: 4 }}
+                      onClick={() => {
+                        const newClicks = surpriseClicks + 1;
+                        setSurpriseClicks(newClicks);
+                        if (newClicks >= 3) setShowHint(true);
+                      }}
+                      className="surprise-icon-small-wrapper"
+                    >
+                      <Sparkles 
+                        size={32} 
+                        stroke="url(#purple-gradient)"
+                        fill="none"
+                        strokeWidth={1.5}
+                        style={{ filter: 'drop-shadow(0 0 10px rgba(139,92,246,0.3))' }}
+                      />
+                    </motion.div>
+                    <div className="surprise-title-compact">
+                      <span>SECRET</span>
+                      <span className="accent">RITUAL</span>
+                    </div>
+                  </div>
                   
                   <div className="surprise-glass-card">
                     <p className="surprise-subtitle">INPUT ACCESS CODE</p>
